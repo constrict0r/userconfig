@@ -16,7 +16,7 @@
 
   - name: Download example-user-skeleton.yml file.
     get_url:
-      url: https://is.gd/pZyTys
+      url: https://is.gd/G7Kah2
       dest: /tmp/example-user-skeleton.yml
       force: true
 
@@ -35,11 +35,11 @@
 
   - name: Define configuration base_url variable.
     set_fact:
-      base_url: 'https://raw.githubusercontent.com/constrict0r'
+      base_url: 'https://gitlab.com/constrict0r'
 
   - name: Define config_url variable.
     set_fact:
-      config_url: "{{ base_url }}/userconfig/master/resources/example.yml"
+      config_url: "{{ base_url }}/userconfig/raw/master/resources/example.yml"
 
   - name: Test with null.
     debug:
@@ -191,7 +191,7 @@
       name: constrict0r.userconfig
     vars:
       users: [mary]
-      user_skeleton: https://github.com/constrict0r/home
+      user_skeleton: https://gitlab.com/constrict0r/home
       configuration: []
     become: true
 
@@ -227,7 +227,7 @@
     vars:
       users: [mary]
       user_skeleton:
-        - item_path: https://github.com/constrict0r/home
+        - item_path: https://gitlab.com/constrict0r/home
           item_expand: false
       configuration:
         - item_path: /tmp/example-user-skeleton.yml
