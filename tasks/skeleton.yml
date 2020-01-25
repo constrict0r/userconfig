@@ -1,0 +1,83 @@
+---
+# Tasks to clone skeleton repositories.
+
+- name: Handle Skeleton repositories.
+  debug:
+    msg:
+      - '--------------------------------------------------------------------'
+      - 'Processing skeleton ...'
+      - '--------------------------------------------------------------------'
+
+- name: Set cloned_source variable.
+  set_fact:
+    cloned_source: /tmp/cloned_skeleton
+
+- name: Clone url.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Cloning skeleton url ...'
+      - '____________________________________________________________________'
+
+- name: Create the cloned_skeleton directory.
+  file:
+    path: "{{ cloned_source }}"
+    state: directory
+    force: true
+  changed_when: false
+  when: not ansible_check_mode
+
+- name: Clone the skeleton repository into /tmp/cloned_skeleton directory.
+  git:
+    version: master
+    repo: "{{ current_skeleton }}"
+    dest: "{{ cloned_source }}"
+    accept_hostkey: true
+    force: true
+  changed_when: false
+  when:
+    - not ansible_check_mode
+    - current_skeleton is variable_url_existent
+
+- name: Verify the process is executing fine.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Verifying if everything is going well :) ...'
+      - '____________________________________________________________________'
+
+- name: Add verification file to source directory.
+  file:
+    path: "{{ cloned_source }}/.amanita"
+    state: touch
+  changed_when: false
+  delegate_to: "{{ inventory_hostname }}"
+  when: not ansible_check_mode
+
+- name: Synchronize files.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Syncing files ...'
+      - '____________________________________________________________________'
+
+- name: Synchronize files (Apply configuration).
+  include_tasks: sync.yml
+  vars:
+    current_user: "{{ item }}"
+  with_items: "{{ unified }}"
+  when: unified is not variable_empty
+
+- name: Cleanup.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Cleaning up files ...'
+      - '____________________________________________________________________'
+
+- name: Delete the cloned_skeleton directory.
+  file:
+    path: "{{ cloned_source }}"
+    state: absent
+  changed_when: false
+  when: not ansible_check_mode

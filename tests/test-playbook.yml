@@ -1,0 +1,291 @@
+---
+# Userconfig tests, from root folder run: ./testme.sh.
+
+- name: Apply user configuration - tests.
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+  - name: Requirements setup.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Setting up requirements ...'
+        - '__________________________________________________________________'
+
+  - name: Download example-user-skeleton.yml file.
+    get_url:
+      url: https://is.gd/pZyTys
+      dest: /tmp/example-user-skeleton.yml
+      force: true
+
+  - name: Create user mary if not exists.
+    user:
+      name: mary
+      state: present
+    become: true
+
+  - name: Defining variables.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Defining variables ...'
+        - '__________________________________________________________________'
+
+  - name: Define configuration base_url variable.
+    set_fact:
+      base_url: 'https://raw.githubusercontent.com/constrict0r'
+
+  - name: Define config_url variable.
+    set_fact:
+      config_url: "{{ base_url }}/userconfig/master/resources/example.yml"
+
+  - name: Test with null.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Testing with null ...'
+        - ' ,xXXXXx'
+        - ',XXXXXXXX'
+        - 'XXXXXXXXXX'
+        - '````XX```'
+        - '    XX'
+        - '    XX'
+        - '    XX'
+        - '__________________________________________________________________'
+
+  - name: Apply configuration passing null.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users: null
+      user_skeleton: null
+      configuration: null
+
+  - name: Test with none.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Testing with none ...'
+        - '   __.......__'
+        - ' .`           `.'
+        - ':               :'
+        - ':               :'
+        - ' `.._________..`'
+        - '      :   :'
+        - '      :   :'
+        - '      :   :'
+        - '      `...`'
+        - '__________________________________________________________________'
+
+  - name: Apply configuration passing none.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users:
+      user_skeleton:
+      configuration:
+
+  - name: Test with undefined.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Testing with undefined ...'
+        - '         ___..._'
+        - '    _,--`       ``-.'
+        - '  ,`.  .            \'
+        - ',/:. .     .       .'
+        - '|;..  .      _..--'
+        - '`--:...-,-```\'
+        - '        |:.  `.'
+        - '        l;.   l'
+        - '        `|:.   |'
+        - '         |:.   `.,'
+        - '        .l;.    j, ,'
+        - '     `.\`;:.   //,/'
+        - '      .\)`;,|\`/('
+        - '       ` `    `(,'
+        - '__________________________________________________________________'
+
+  - name: Apply configuration passing undefined.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users: "{{ undefined_variable }}"
+      user_skeleton: "{{ undefined_variable }}"
+      configuration: "{{ undefined_variable }}"
+
+  - name: Test with empty.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Testing with empty ...'
+        - '        __....._' 
+        - '     .``         ``' 
+        - '   ."               `'  
+        - '  .                   ' 
+        - ' .       __...__       '
+        - '. _.--```       ```--._ '
+        - ':`                     `'
+        - ' `-.__    :    :   __.-`'
+        - '      ```-:    :-```' 
+        - '         J     '
+        - '         :     '
+        - '        J       '
+        - '        :       '
+        - '        `._____.'
+        - '__________________________________________________________________'
+
+  - name: Apply configuration passing empty.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users: ''
+      user_skeleton: ''
+      configuration: ''
+    become: true
+
+  - name: Test with non-empty.
+    debug:
+      msg:
+        - '__________________________________________________________________'
+        - 'Testing with non-empty ...'
+        - '        __....._'
+        - '     .`` _  o    ``'
+        - '   ." O (_)     () o`'
+        - '  .           O        '
+        - ' . ()   o__...__    O   '
+        - '. _.--```       ```--._ '
+        - ':`                     `'
+        - ' `-.__    :    :   __.-`'
+        - '      ```-:    :-```'
+        - '         J     '
+        - '         :     '
+        - '        J       '
+        - '        :       '
+        - '        `._____.'
+        - '__________________________________________________________________'
+
+  - name: Test with non-empty user_skeleton.
+    debug:
+      msg:
+        - '..................................................................'
+        - 'Testing with non-empty user_skeleton ...'
+        - '      ----------'
+        - '    /  (_)_      \'
+        - '  /)     (_) (_)  \'
+        - ' |                 |'
+        - '| _   (_)   _   (_) |'
+        - '|(_)  _  (_) _   (_)|'
+        - '|___(_)_____(_)_____|'
+        - ' |||||||||||||||||||'
+        - '        |   |'
+        - '        |   |'
+        - '        |   |'
+        - '        |___|'
+        - '..................................................................'
+
+  - name: Apply configuration passing non-empty user_skeleton.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users: [mary]
+      user_skeleton: https://github.com/constrict0r/home
+      configuration: []
+    become: true
+
+  - name: Verify /home/mary/.vimrc
+    stat:
+      path: /home/mary/.vimrc
+    register: st_res
+    failed_when: st_res.stat.isreg is not defined or not st_res.stat.isreg
+
+  - name: Test with non-empty configuration.
+    debug:
+      msg:
+        - '..................................................................'
+        - 'Testing with non-empty configuration ...'
+        - '        m'
+        - '       / \'
+        - '      .   \'
+        - '     ( O   \'
+        - '    /  _   O\'
+        - '   /  (_)    .'
+        - '  .       O   \'
+        - ' (__O__________)'
+        - '  \((((())))))/'
+        - '      /  X'
+        - '     /   )'
+        - '    |   /'
+        - '_.n.(___)nmm._.,n._'
+        - '..................................................................'
+
+  - name: Apply configuration passing non-empty configuration.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users: [mary]
+      user_skeleton:
+        - item_path: https://github.com/constrict0r/home
+          item_expand: false
+      configuration:
+        - item_path: /tmp/example-user-skeleton.yml
+          item_expand: true
+    become: true
+
+  - name: Verify /home/mary/.vimrc
+    stat:
+      path: /home/mary/.vimrc
+    register: st_res
+    failed_when: st_res.stat.isreg is not defined or not st_res.stat.isreg
+
+  - name: Test with non-empty - configuration by URL.
+    debug:
+      msg:
+        - '------------------------------------------------------------------'
+        - 'Testing with non-empty - configuration by URL ...'
+        - '         .8.'
+        - '         888'
+        - '         888l'
+        - '        j8888.'
+        - '       .888888.'
+        - '      .88888888.'
+        - '    .d8888888888b.'
+        - '  .d88888888888888b.'
+        - ' .888888888888888888b.'
+        - '.888888888888888888888.'
+        - '88888888888888888888888'
+        - '888----------------4888'
+        - '`P-     .    .     `q-'
+        - ' `-..____:  :____..--'
+        - '         :  :'
+        - '         :  :'
+        - '         :  :'
+        - '         :  :'
+        - '         :  :'
+        - '       \(/\\)\/'
+        - '------------------------------------------------------------------'
+
+  - name: Apply configuration passing configuration by URL.
+    import_role:
+      name: constrict0r.userconfig
+    vars:
+      users: [mary]
+      user_skeleton:
+      configuration:
+        - item_path: "{{ config_url }}"
+          item_expand: true
+    failed_when: unified is variable_empty
+
+# Cleanup files.
+  - name: Cleanup /tmp/example-user-skeleton.yml file.
+    file:
+      path: /tmp/example-user-skeleton.yml
+      state: absent
+
+  - name: Remove the user mary.
+    user:
+      name: mary
+      state: absent
+    become: true

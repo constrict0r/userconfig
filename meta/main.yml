@@ -1,0 +1,46 @@
+---
+galaxy_info:
+  author: constrict0r
+  description: Apply user configuration.
+  company: Amanita.
+
+  license: MIT.
+
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags:
+    - auto
+    - autodebian
+    - apt
+    - debian
+    - devops
+    - doombots
+    - linux
+    - nodejs
+    - ubuntu
+
+dependencies:
+  - role: constrict0r.unify
+    validate: true
+    update: true
+    items:
+      - "{{ users | default([]) }}"
+      - "{{ configuration | default([]) }}"
+    titles: 'users'
+    expand: true
+    secondary: true
+    items_b:
+      - "{{ user_skeleton | default([]) }}"
+      - "{{ configuration | default([]) }}"
+    titles_b: 'user_skeleton'
+    expand_b: false

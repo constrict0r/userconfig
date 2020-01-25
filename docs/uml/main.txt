@@ -1,0 +1,31 @@
+@startuml
+'Use plantuml to view this file as an image: http://plantuml.com'
+
+skinparam monochrome true
+
+start
+
+:Apply validations;
+
+if (validations passed?) then (yes)
+
+  :Ensure dependencies are installed;
+
+  repeat
+    :Create cloned_skeleton directory;
+    :Clone item to cloned_skeleton;
+
+    repeat
+      :Synchronize all contents from cloned_skeleton to /home/user forcing;
+    repeat while (user left?)
+
+    :Delete cloned_skeleton directory;
+  repeat while (skeletons left?)
+
+else (no)
+  :Show validation errors;
+endif
+
+end
+
+@enduml

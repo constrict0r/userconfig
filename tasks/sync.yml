@@ -1,0 +1,115 @@
+---
+# Tasks to synchronize files.
+
+- name: Get sync destination.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Getting destination ...'
+      - '____________________________________________________________________'
+
+- name: Set cloned_destination variable to /home/username.
+  set_fact:
+    cloned_destination: "/home/{{ current_user }}/"
+  when:
+    - current_user.item_name is not defined
+    - not current_user == 'root'
+
+- name: Set cloned_destination variable to /home/username using item_name.
+  set_fact:
+    cloned_destination: "/home/{{ current_user.item_name }}/"
+  when:
+    - current_user.item_name is defined
+    - not current_user.item_name == 'root'
+
+- name: Set cloned_destination variable to /root.
+  set_fact:
+    cloned_destination: "/root/"
+  when:
+    - current_user.item_name is not defined
+    - current_user == 'root'
+
+- name: Set cloned_destination variable to /root using item_name.
+  set_fact:
+    cloned_destination: "/root/"
+  when:
+    - current_user.item_name is defined
+    - current_user.item_name == 'root'
+
+- name: Sync files.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Syncing files ...'
+      - '____________________________________________________________________'
+
+- name: Synchronize files for current user (Apply configuration).
+  synchronize:
+    mode: pull
+    src: "{{ cloned_source }}/"
+    dest: "{{ cloned_destination }}"
+    recursive: true
+    delete: false
+  become: true
+  changed_when: false
+  delegate_to: "{{ inventory_hostname }}"
+  when: not ansible_check_mode
+
+- name: Fix permissions.
+  file:
+    path: "{{ cloned_destination }}"
+    state: directory
+    recurse: true
+    owner: "{{ current_user }}"
+    group: "{{ current_user }}"
+    mode: u=rwx,g=r,o=r
+  become: true
+  changed_when: false
+  delegate_to: "{{ inventory_hostname }}"
+  when:
+    - not ansible_check_mode
+    - current_user.item_name is not defined
+
+- name: Fix permissions using item_name.
+  file:
+    path: "{{ cloned_destination }}"
+    state: directory
+    recurse: true
+    owner: "{{ current_user.item_name }}"
+    group: "{{ current_user.item_name }}"
+    mode: u=rwx,g=r,o=r
+  become: true
+  changed_when: false
+  delegate_to: "{{ inventory_hostname }}"
+  when:
+    - not ansible_check_mode
+    - current_user.item_name is defined
+
+- name: Verify the process is executing fine.
+  debug:
+    msg:
+      - '____________________________________________________________________'
+      - 'Verifying if everything is going well :D ...'
+      - '____________________________________________________________________'
+
+- name: Get verification file status on destination directory.
+  stat:
+    path: "{{ cloned_destination }}/.amanita"
+  register: st_res
+
+- name: Verify if files where synchronized.
+  fail:
+    msg: "Can't synchronize {{ cloned_source }} with {{ cloned_destination }}"
+  when:
+    - not ansible_check_mode
+    - st_res.stat.isreg is undefined or not st_res.stat.isreg | bool
+
+- name: Delete verification file using item_name.
+  file:
+    path: "{{ cloned_destination }}/.amanita"
+    state: absent
+    force: true
+  become: true
+  changed_when: false
+  delegate_to: "{{ inventory_hostname }}"
+  when: not ansible_check_mode

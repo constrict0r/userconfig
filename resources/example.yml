@@ -1,0 +1,9 @@
+---
+# Example configuration with repositories to clone.
+
+users:
+  - mary
+
+user_skeleton:
+  - item_path: https://github.com/constrict0r/home
+    item_expand: false

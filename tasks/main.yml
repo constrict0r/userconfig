@@ -1,0 +1,39 @@
+---
+- name: Display Role Details.
+  debug:
+    msg:
+      - '===================================================================='
+      - 'constrict0r.userconfig'
+      - 'Apply user configuration.'
+      - '===================================================================='
+
+- name: Setting up requirements.
+  debug:
+    msg:
+      - '--------------------------------------------------------------------'
+      - 'Main - Processing requirements ...'
+      - '--------------------------------------------------------------------'
+  when: unified is not variable_empty
+
+- name: Verify requirements installed - git, rsync.
+  apt:
+    name:
+      - git
+      - rsync
+  become: true
+  when: not ansible_check_mode
+
+- name: Apply skeleton repositories.
+  debug:
+    msg:
+      - '--------------------------------------------------------------------'
+      - 'Main - Processing skeleton repositories ...'
+      - '--------------------------------------------------------------------'
+  when: unified is not variable_empty
+
+- name: Loop through list of skeleton repositories.
+  include_tasks: skeleton.yml
+  loop: "{{ unified_b }}"
+  loop_control:
+    loop_var: current_skeleton
+  when: unified_b is not variable_empty
