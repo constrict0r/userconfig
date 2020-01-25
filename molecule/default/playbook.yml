@@ -4,8 +4,8 @@
   roles:
     - role: userconfig
       user_skeleton:
-        - item_path: https://github.com/constrict0r/home
+        - item_path: https://gitlab.com/constrict0r/home
           item_expand: false
       configuration:
-        - item_path: https://is.gd/pZyTys
+        - item_path: https://is.gd/G7Kah2
           item_expand: true
