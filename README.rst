@@ -86,10 +86,10 @@ This role performs the following actions:
 
 This role do not expand files or URLs by default because the most
 common case is to specify URLs that points directly to a skeleton
-repository, so the default behaviour for this role is to treat file
+repository, so the default behavior for this role is to treat file
 paths and URLs as plain text.
 
-You can change the default behaviour by:
+You can change the default behavior by:
 
 * Setting the **expand** variable to *true*.
 
