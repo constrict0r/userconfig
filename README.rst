@@ -151,15 +151,17 @@ Usage
         vars:
           user_skeleton: ['https://github.com/constrict0r/home']
 
-To run tests:
+* To run tests:
 
-::
+..
 
-   cd userconfig
-   chmod +x testme.sh
-   ./testme.sh
+   ::
 
-On some tests you may need to use *sudo* to succeed.
+      cd userconfig
+      chmod +x testme.sh
+      ./testme.sh
+
+   On some tests you may need to use *sudo* to succeed.
 
 
 Variables
