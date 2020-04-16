@@ -30,7 +30,6 @@
       become: false
       changed_when: false
 
-
     - name: Create mary user.
       user:
         name: mary
