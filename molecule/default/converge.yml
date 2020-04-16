@@ -30,6 +30,13 @@
       become: false
       changed_when: false
 
+
+    - name: Create users on unified_collection - item - user_p.
+      user:
+        name: mary
+        password: 1234
+      become: true
+
   roles:
     - role: userconfig
       configuration:
