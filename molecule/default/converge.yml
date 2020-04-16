@@ -1,0 +1,51 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Setting up test environment.
+      debug:
+        msg:
+          - '==============================================================='
+          - 'Pre tasks'
+          - '==============================================================='
+
+    - name: Ensure Python requirements installed.
+      apt:
+        name:
+          - python
+          - python-pip
+          - python-setuptools
+          - python3-pip
+          - python3-setuptools
+        state: present
+      changed_when: false
+
+    - name: Ensure Pip requirements installed.
+      pip:
+        name:
+          - flake8
+          - requests
+      become: false
+      changed_when: false
+
+  roles:
+    - role: userconfig
+      configuration:
+        - item_path: https://is.gd/pJcgRo
+          item_expand: true
+
+  post_tasks:
+    - name: Run verification tests.
+      debug:
+        msg:
+          - '================================================================'
+          - 'Post tasks'
+          - '================================================================'
+
+    - name: Verify vim configured for user mary.
+      stat:
+        path: /home/mary/.vimrc
+      register: st_res
+      failed_when: st_res.stat.isreg is not defined or not st_res.stat.isreg

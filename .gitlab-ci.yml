@@ -2,19 +2,6 @@
 stages:
   - test
 
-bare:
-  image: debian:latest
-  stage: test
-  before_script:
-    - apt update
-    - apt install -y python3-pip python3-setuptools
-    - python3 -m pip install --upgrade pip setuptools wheel
-    - python3 -m pip install ansible
-    - ansible-galaxy install constrict0r.userconfig
-    - chmod +x testme.sh
-  script:
-    - ./testme.sh -i -o a -t -x python3
-
 molecule:
   image: docker:git
   stage: test
@@ -25,6 +12,6 @@ molecule:
       python3-dev py3-pip docker gcc git curl build-base
       autoconf automake py3-cryptography linux-headers
       musl-dev libffi-dev openssl-dev openssh
-    - pip3 install ansible molecule[docker]
+    - pip3 install ansible flake8 molecule[docker]
   script:
     - molecule test

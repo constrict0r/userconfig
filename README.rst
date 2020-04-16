@@ -13,8 +13,8 @@ userconfig
 
 Ansible role to apply user-wide configuration.
 
-.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/userconfig.png
-   :alt: userconfig
+.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/avatar.png
+   :alt: avatar
 
 Full documentation on `Readthedocs
 <https://userconfig.readthedocs.io>`_.
@@ -25,15 +25,15 @@ Source code on:
 
 `Gitlab <https://gitlab.com/constrict0r/userconfig>`_.
 
-`Part of: <https://gitlab.com/explore/projects?tag=doombots>`_
+`Part of: <https://gitlab.com/explore/projects?tag=doombot>`_
 
-.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/doombots.png
-   :alt: doombots
+.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/doombot.png
+   :alt: doombot
 
 **Ingredients**
 
-.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/ingredients.png
-   :alt: ingredients
+.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/ingredient.png
+   :alt: ingredient
 
 
 Contents
@@ -98,6 +98,7 @@ Or
 * Add to an item the attribute **item_expand** setted to *true*.
 
 
+
 Usage
 *****
 
@@ -151,17 +152,16 @@ Usage
         vars:
           user_skeleton: ['https://github.com/constrict0r/home']
 
-* To run tests:
+To run tests:
 
-..
+::
 
-   ::
+   cd userconfig
+   chmod +x testme.sh
+   ./testme.sh
 
-      cd userconfig
-      chmod +x testme.sh
-      ./testme.sh
+On some tests you may need to use *sudo* to succeed.
 
-   On some tests you may need to use *sudo* to succeed.
 
 
 Variables
@@ -293,6 +293,7 @@ To see how to write  a configuration file see the *YAML* file format
 section.
 
 
+
 YAML
 ****
 
@@ -325,6 +326,7 @@ can set the **expand** variable to *true*:
 
 If the expand variable is *false*, any file path or URL found will be
 treated like plain text.
+
 
 
 Attributes
@@ -364,6 +366,7 @@ Absolute file path or URL to a *.yml* file.
 This attribute also works with URLs.
 
 
+
 Requirements
 ************
 
@@ -388,6 +391,7 @@ If you want to run the tests, you will also need:
 * `Setuptools <https://pypi.org/project/setuptools/>`_.
 
 
+
 Compatibility
 *************
 
@@ -398,6 +402,7 @@ Compatibility
 * `Debian Stretch <https://wiki.debian.org/DebianStretch>`_.
 
 * `Ubuntu Xenial <http://releases.ubuntu.com/16.04/>`_.
+
 
 
 Limitations
@@ -411,10 +416,12 @@ folder:
    chown -R username:username /home/username
 
 
+
 License
 *******
 
 MIT. See the LICENSE file for more details.
+
 
 
 Links
@@ -431,6 +438,7 @@ Links
 * `Travis CI <https://travis-ci.com/constrict0r/userconfig>`_.
 
 
+
 UML
 ***
 
@@ -440,8 +448,8 @@ Deployment
 
 The full project structure is shown below:
 
-.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/deployment.png
-   :alt: deployment
+.. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/deploy.png
+   :alt: deploy
 
 
 Main
@@ -451,6 +459,7 @@ The project data flow is shown below:
 
 .. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/main.png
    :alt: main
+
 
 
 Author
@@ -465,4 +474,5 @@ Enjoy!!!
 
 .. image:: https://gitlab.com/constrict0r/img/raw/master/userconfig/enjoy.png
    :alt: enjoy
+
 

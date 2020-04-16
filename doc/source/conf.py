@@ -58,20 +58,17 @@ readthedocs_link = "`Readthedocs <" + readthedocs_url + ">`_."
 global_substitutions = {
     "AUTHOR_IMG": author_img,
     "AUTHOR_SLOGAN": author_slogan,
-    "AVATAR_IMG": ".. image:: " + img_url + project + ".png\n   :alt: "
-    + project,
+    "AVATAR_IMG": ".. image:: " + img_url + "avatar.png\n   :alt: avatar",
     "DEFAULT_VAR_NAME": 'user_skeleton',
-    "DEPLOYMENT_IMG": ".. image:: " + img_url +
-    "/deployment.png\n   :alt: deployment",
-    "DOOMBOTS_IMG": ".. image:: " + img_url +
-    "/doombots.png\n   :alt: doombots",
+    "DEPLOY_IMG": ".. image:: " + img_url + "/deploy.png\n   :alt: deploy",
+    "DOOMBOT_IMG": ".. image:: " + img_url + "/doombot.png\n   :alt: doombot",
     "ENJOY_IMG": ".. image:: " + img_url + "/enjoy.png\n   :alt: enjoy",
     "GITLAB_BADGE":  ".. image:: " + gitlab_badge,
     "GITLAB_CI_LINK":  gitlab_ci_link,
     "GITHUB_LINK":  github_link,
     "GITLAB_LINK":  gitlab_link,
-    "INGREDIENTS_IMG": ".. image:: " + img_url +
-    "/ingredients.png\n   :alt: ingredients",
+    "INGREDIENT_IMG": ".. image:: " + img_url +
+    "/ingredient.png\n   :alt: ingredient",
     "MAIN_IMG": ".. image:: " + img_url + "/main.png\n   :alt: main",
     "PROJECT": project,
     "READTHEDOCS_BADGE": ".. image:: https://rtfd.io" + readthedocs_badge,
