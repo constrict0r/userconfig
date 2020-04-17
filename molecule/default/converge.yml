@@ -39,7 +39,6 @@
   roles:
     - role: userconfig
       configuration: https://is.gd/pJcgRo
-      expand_b: true
 
   post_tasks:
     - name: Run verification tests.

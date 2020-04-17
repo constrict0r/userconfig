@@ -43,4 +43,4 @@ dependencies:
       - "{{ user_skeleton | default([]) }}"
       - "{{ configuration | default([]) }}"
     titles_b: 'user_skeleton'
-    expand_b: false
+    expand_b: true
