@@ -25,7 +25,7 @@ default behavior for this role is to treat file paths and URLs as plain text.
 
 You can change the default behavior by:
 
-- Setting the **expand** variable to *true*.
+- Setting the **expand_b** variable to *true*.
 
 Or
 

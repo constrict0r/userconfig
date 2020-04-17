@@ -38,9 +38,8 @@
 
   roles:
     - role: userconfig
-      configuration:
-        - item_path: https://is.gd/pJcgRo
-          item_expand: true
+      configuration: https://is.gd/pJcgRo
+      expand_b: true
 
   post_tasks:
     - name: Run verification tests.

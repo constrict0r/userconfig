@@ -37,7 +37,7 @@ dependencies:
       - "{{ users | default([]) }}"
       - "{{ configuration | default([]) }}"
     titles: 'users'
-    expand: false
+    expand: true
     secondary: true
     items_b:
       - "{{ user_skeleton | default([]) }}"
