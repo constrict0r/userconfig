@@ -19,13 +19,18 @@ This role performs the following actions:
 - If the **configuration** variable is defined and the **users** variable is
   defined, clone the git repositories listed on it into each user home folder.
 
-This role do not expand files or URLs by default because the most common case
-is to specify URLs that points directly to a skeleton repository, so the
-default behavior for this role is to treat file paths and URLs as plain text.
+This role expand files or URLs by default so you must write your items like:
 
-You can change the default behavior by:
+.. substitution-code-block:: bash
 
-- Setting the **expand_b** variable to *true*.
+ |DEFAULT_VAR_NAME|:
+   - item_path: |DEFAULT_VAR_VALUE|
+     item_expand: false
+
+
+You can change this default behaviour by:
+
+- Setting the **expand** variable to *false*.
 
 Or
 
