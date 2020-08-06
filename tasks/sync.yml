@@ -96,6 +96,7 @@
   stat:
     path: "{{ cloned_destination }}/.amanita"
   register: st_res
+  become: true
 
 - name: Verify if files where synchronized.
   fail:
